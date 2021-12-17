@@ -21,10 +21,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Weather Dashboard</h1>
-        <div class="container">
+        <div className="container">
           <SearchBar />
           <CurrentTemp data={testData} />
-          {testData.map((obj) => <ForecastCard data={obj} />)}
+          {testData.map((obj, i) => <ForecastCard data={obj} i={i} />)}
         </div>
       </header>
     </div>
