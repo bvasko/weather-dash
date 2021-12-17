@@ -1,22 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {CurrentTemp} from './components/CurrentTemp.js';
+import {SearchBar} from './components/SearchBar.js';
+import {ForecastCard} from './components/ForecastCard.js';
 function App() {
+  const testData = [
+    {
+      date: "3/31/2021",
+      temp: "73.72"
+    },
+    {
+      date: "3/31/2021",
+      temp: "73.72"
+    },
+    {
+      date: "3/31/2021",
+      temp: "73.72"
+    }
+  ];
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Weather Dashboard</h1>
+        <div class="container">
+          <SearchBar />
+          <CurrentTemp data={testData} />
+          {testData.map((obj) => <ForecastCard data={obj} />)}
+        </div>
       </header>
     </div>
   );
