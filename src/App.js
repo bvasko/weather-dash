@@ -10,6 +10,13 @@ import './css/App.css';
 
 
 function App() {
+  const [query, setQuery] = useState('');
+  const [temp, setTemp] = useState('');
+  const [status, setStatus] = useState('');
+  const [data, setData] = useState([]);
+  
+  let url = `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${process.env.REACT_APP_API_KEY}`;
+  // useFetch should trigger everytime query changes
   const testData = [
     {
       date: "3/31/2021",
@@ -24,6 +31,24 @@ function App() {
       temp: "73.72"
     }
   ];
+  useEffect(() => {
+    if (!query) return;
+
+    const fetchData = async () => {
+      setStatus('fetching');
+      const response = await fetch(url);
+      const data = await response.json();
+      setData(data);
+      setStatus('fetched');
+    };
+    fetchData();
+  }, [query, url]);
+  function handleClick(e) {
+    setQuery(temp);
+  }
+  function handleChange(e) {
+    setTemp(e.target.value);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -32,7 +57,7 @@ function App() {
 
       <Grid container spacing={2}>
         <Grid item xs={3} md={4}>
-          <SearchBar />
+          <SearchBar handleClick={handleClick} handleChange={handleChange} query={query} />
         </Grid>
         <Grid item xs={9} md={8}>
             <CurrentTemp data={testData} />
