@@ -11,11 +11,9 @@ export const ForecastCard = ({data, i}) => {
         <Typography gutterBottom variant="h5" component="div">
         {data.date}
         </Typography>
-        
         <List>
           <ListItem disablePadding>{data.temp}</ListItem>
         </List>
-      
       </CardContent>
     </Card>
   ); 

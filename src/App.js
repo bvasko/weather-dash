@@ -1,4 +1,7 @@
+import { useState, useEffect} from 'react';
+
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { CurrentTemp } from './components/CurrentTemp.js';
 import { SearchBar } from './components/SearchBar.js';
 import { ForecastCard } from './components/ForecastCard.js';
@@ -24,7 +27,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Weather Dashboard</h1>
+        <Typography variant="h1">Weather Dashboard</Typography>
       </header>
 
       <Grid container spacing={2}>
