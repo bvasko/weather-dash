@@ -1,13 +1,20 @@
-export const ForecastCard = (data, i) => {
-  console.log(data)
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+
+export const ForecastCard = ({data, i}) => {
   return (
-    <div>
-      <h4>Date</h4>
-      <img src="" />
-      <ul>
-        <li key={i}>Temp: {data.date}</li>
-        <li>Wind:</li>
-      </ul>
-    </div>
+    <Card key={i}>
+       <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        {data.date}
+        </Typography>
+        <List>
+          <ListItem disablePadding>{data.temp}</ListItem>
+        </List>
+      </CardContent>
+    </Card>
   ); 
 }
