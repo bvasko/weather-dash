@@ -20,8 +20,24 @@ body {
   padding: 18px;
 }
 
-.sidebar {
-  border: 1px solid #999;
+.sidebar, .main {
   text-align: left;
   padding: 16px;
+}
+
+.hourly-block {
+  border: 1px solid #eee;
+  padding: 8px;
+}
+.hourly-block .time {
+  font-size: .8rem;
+  display: block;
+}
+.hourly-block .currTemp {
+  font-size: 1.2rem;
+  display: block;
+}
+
+.hourly-block .currTemp::after {
+  content: '°';
 }

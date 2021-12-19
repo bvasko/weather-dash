@@ -4,8 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { CurrentTemp } from './components/CurrentTemp.js';
 import { SearchBar } from './components/SearchBar.js';
-import { ForecastCard } from './components/ForecastCard.js';
-import Stack from '@mui/material/Stack';
+import { ForecastComponent } from './components/ForecastComponent.js';
 import './css/App.css';
 
 
@@ -13,23 +12,42 @@ function App() {
   const [query, setQuery] = useState('');
   const [temp, setTemp] = useState('');
   const [status, setStatus] = useState('');
-  const [data, setData] = useState({city: {name: ''}});
-  
-  let url = `http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${process.env.REACT_APP_API_KEY}&units=imperial`;
+  const [cityData, setCityData] = useState({name: ''});
+  const [forecastData, setForecastData] = useState([]);
+  const baseUrl = `http://api.openweathermap.org/data/2.5/`;
+  const appId = `&appid=${process.env.REACT_APP_API_KEY}`;
+  const units = `&units=imperial`;
+  let getUrl = (queryType) => `${baseUrl}${queryType}?q=${query}${appId}${units}`;
   // useFetch should trigger everytime query changes
+  //weather?q={city name}&appid={API key}
   useEffect(() => {
     if (!query) return;
 
     const fetchData = async () => {
+      /**
+       * TODO: Move this into a custom hook
+       */
       setStatus('fetching');
-      const response = await fetch(url);
-      const data = await response.json();
-      setData(data);
+      const weatherResponse = await fetch(getUrl('weather'));
+      if (weatherResponse.status === 404 || !weatherResponse.ok) {
+        setStatus('error');
+      }
+      const data = await weatherResponse.json();
+      console.log('done ', data)
+      setCityData(data);
       setStatus('fetched');
-      console.log('log fetch', data);
+
+      setStatus('fetching');
+      const response = await fetch(getUrl('forecast'));
+      if (response.status === 404 || !response.ok) {
+        setStatus('error');
+      }
+      const forecast = await response.json();
+      setForecastData(forecast.list);
+      setStatus('fetched');
     };
     fetchData();
-  }, [query, url]);
+  }, [query]);
   function handleClick(e) {
     setQuery(temp);
   }
@@ -46,13 +64,20 @@ function App() {
         <Grid item xs={3} md={4}>
           <SearchBar handleClick={handleClick} handleChange={handleChange} query={query} />
         </Grid>
+        
+        { status === 'fetched' ? 
         <Grid item xs={9} md={8}>
-            <CurrentTemp data={data} />
-            <Stack direction="row" spacing={2}>
-              {/* {data.map((obj, i) => 
-                <ForecastCard data={obj} i={i} />)} */}
-            </Stack>
+          <div className="main">
+          <CurrentTemp data={cityData} />
+          <ForecastComponent data={forecastData} />
+          </div>
+        </Grid> :
+        <Grid item xs={9} md={8}>
+          <div className="main">
+          <Typography variant="h5">Nothing Found</Typography>
+          </div>
         </Grid>
+        }
       </Grid>
     </div>
   );

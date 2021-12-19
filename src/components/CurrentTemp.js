@@ -8,10 +8,10 @@ export const CurrentTemp = ({data}) => {
   return (
     <Card>
       <CardContent>
-      <Typography variant="h5">{data.city.name || ''}</Typography>
+      <Typography variant="h5">{data.name || ''}</Typography>
       <List>
         <ListItem>
-          Temp: 74.01F
+          {Math.round(data.main.temp)}°
         </ListItem>
       </List>
       </CardContent>
