@@ -6,7 +6,7 @@ export const SearchBar = ({handleChange, handleClick}) => {
   return (
     <Stack className="sidebar"spacing={2}>
       <h2>Search for a City:</h2>
-      <TextField onChange={e => handleChange(e)} id="outlined-basic" label="Outlined" variant="outlined" />
+      <TextField onChange={e => handleChange(e)} id="outlined-basic" label="City" variant="outlined" />
       <Button onClick={e => handleClick(e)} variant="outlined">Search</Button>
     </Stack>
   )

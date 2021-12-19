@@ -13,24 +13,10 @@ function App() {
   const [query, setQuery] = useState('');
   const [temp, setTemp] = useState('');
   const [status, setStatus] = useState('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({city: {name: ''}});
   
-  let url = `http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=${process.env.REACT_APP_API_KEY}`;
+  let url = `http://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${process.env.REACT_APP_API_KEY}&units=imperial`;
   // useFetch should trigger everytime query changes
-  const testData = [
-    {
-      date: "3/31/2021",
-      temp: "73.72"
-    },
-    {
-      date: "3/31/2021",
-      temp: "73.72"
-    },
-    {
-      date: "3/31/2021",
-      temp: "73.72"
-    }
-  ];
   useEffect(() => {
     if (!query) return;
 
@@ -40,6 +26,7 @@ function App() {
       const data = await response.json();
       setData(data);
       setStatus('fetched');
+      console.log('log fetch', data);
     };
     fetchData();
   }, [query, url]);
@@ -60,10 +47,10 @@ function App() {
           <SearchBar handleClick={handleClick} handleChange={handleChange} query={query} />
         </Grid>
         <Grid item xs={9} md={8}>
-            <CurrentTemp data={testData} />
+            <CurrentTemp data={data} />
             <Stack direction="row" spacing={2}>
-              {testData.map((obj, i) => 
-                <ForecastCard data={obj} i={i} />)}
+              {/* {data.map((obj, i) => 
+                <ForecastCard data={obj} i={i} />)} */}
             </Stack>
         </Grid>
       </Grid>

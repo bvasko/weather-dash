@@ -4,11 +4,11 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
-export const CurrentTemp = () => {
+export const CurrentTemp = ({data}) => {
   return (
     <Card>
       <CardContent>
-      <Typography variant="h3">Atlanta (3/30/2021)</Typography>
+      <Typography variant="h5">{data.city.name || ''}</Typography>
       <List>
         <ListItem>
           Temp: 74.01F
