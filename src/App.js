@@ -33,7 +33,6 @@ function App() {
         setStatus('error');
       }
       const data = await weatherResponse.json();
-      console.log('done ', data)
       setCityData(data);
       setStatus('fetched');
 
