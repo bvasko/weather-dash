@@ -14,10 +14,9 @@ export const ForecastComponent = ({data, i}) => {
     }
   });
   parseData(data);
-  console.log('sort ', sortByDate);
   const dateKeys = Object.keys(sortByDate);
   return (
-    <Stack direction="column" spacing={2}>
+    <Stack className="forecast-container" direction="column" spacing={2}>
       {dateKeys.map((key, i) => {
           const dataObj = sortByDate[key];
           return <ForecastCard key={key} data={dataObj} i={i} />;

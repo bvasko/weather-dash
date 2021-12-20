@@ -6,9 +6,9 @@ import ListItem from '@mui/material/ListItem';
 
 export const CurrentTemp = ({data}) => {
   return (
-    <Card>
+    <Card className="currentTemp-container">
       <CardContent>
-      <Typography variant="h5">{data.name || ''}</Typography>
+      <Typography className="city-title" variant="h5">{data.name || ''}</Typography>
       <List>
         <ListItem>
           {Math.round(data.main.temp)}°

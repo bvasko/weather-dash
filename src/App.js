@@ -25,11 +25,11 @@ function App() {
 
     const fetchData = async () => {
       /**
-       * TODO: 
-       * Move this into a custom hook
-       * 
-       * TODO: 
-       * Have search box detect 'enter' key and trigger search if it is pressed
+       * TODOs: 
+       * - Move fetch into a custom hook
+       * - get philadelphia as default value on page load
+       * - integrate Snapyr
+       * - Have search box detect 'enter' key and trigger search if it is pressed
        */
       setStatus('fetching');
       const weatherResponse = await fetch(getUrl('weather'));
