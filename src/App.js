@@ -14,7 +14,7 @@ function App() {
   const [status, setStatus] = useState('');
   const [cityData, setCityData] = useState({name: ''});
   const [forecastData, setForecastData] = useState([]);
-  const baseUrl = `http://api.openweathermap.org/data/2.5/`;
+  const baseUrl = `https://api.openweathermap.org/data/2.5/`;
   const appId = `&appid=${process.env.REACT_APP_API_KEY}`;
   const units = `&units=imperial`;
   let getUrl = (queryType) => `${baseUrl}${queryType}?q=${query}${appId}${units}`;
