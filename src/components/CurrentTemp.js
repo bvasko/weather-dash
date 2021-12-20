@@ -5,14 +5,20 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
 export const CurrentTemp = ({data}) => {
+  console.log('start ', data)
   return (
     <Card className="currentTemp-container">
       <CardContent>
-      <Typography className="city-title" variant="h5">{data.name || ''}</Typography>
       <List>
-        <ListItem>
-          {Math.round(data.main.temp)}°
+        <ListItem className="primary-temp">
+          {Math.round(data.main.temp)}° {data.weather[0].main}
         </ListItem>
+        <ListItem className="secondary-temp">
+          <strong>Feels like:</strong> {data.main.feels_like}° 
+          <strong>Low:</strong> {data.main.temp_min}° 
+          <strong>High:</strong> {data.main.temp_max}°
+        </ListItem>
+        <ListItem className="temp-description">{data.weather[0].description}</ListItem>
       </List>
       </CardContent>
     </Card>

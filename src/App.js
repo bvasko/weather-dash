@@ -9,8 +9,8 @@ import './css/App.css';
 
 
 function App() {
-  const [query, setQuery] = useState('');
-  const [temp, setTemp] = useState('');
+  const [query, setQuery] = useState('Philadelphia');
+  const [temp, setTemp] = useState('Philadelphia');
   const [status, setStatus] = useState('');
   const [cityData, setCityData] = useState({name: ''});
   const [forecastData, setForecastData] = useState([]);
@@ -26,8 +26,7 @@ function App() {
     const fetchData = async () => {
       /**
        * TODOs: 
-       * - Move fetch into a custom hook
-       * - get philadelphia as default value on page load
+       * X get philadelphia as default value on page load
        * - integrate Snapyr
        * - Have search box detect 'enter' key and trigger search if it is pressed
        */
@@ -71,6 +70,7 @@ function App() {
         { status === 'fetched' ? 
         <Grid item xs={9} md={8}>
           <div className="main">
+          <Typography className="city-title" variant="h3">{cityData.name || ''}</Typography>
           <CurrentTemp data={cityData} />
           <ForecastComponent data={forecastData} />
           </div>
