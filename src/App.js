@@ -35,7 +35,6 @@ function App() {
   };
 
   function getHistory() {
-    console.log('ls ', localStorage.getItem('searchHistory'));
     let ls = localStorage.getItem('searchHistory');
     return (localStorage.getItem('searchHistory')) ? JSON.parse(ls) : [];
   }

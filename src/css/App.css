@@ -81,13 +81,22 @@ body {
   padding: 8px 0;
   width: 18%;
   border-bottom: 1px solid #eee;
+  position: relative;
+}
+.hourly-block .icon {
+  display: block;
+  text-align: center;
+  position: absolute;
+  top: 4px;
+  left: 20%;
+  right: 20%;
 }
 .hourly-block .tickmark {
   display: block;
   margin-bottom: 3px;
   text-align: center;
   font-size: .6rem;
-  border-top: 32px solid rgb(83, 136, 235);
+  border-top: 40px solid rgb(83, 136, 235);
 }
 .hourly-block .time {
   text-align: center;
@@ -98,8 +107,14 @@ body {
   text-align: center;
   font-size: 1.2rem;
   display: block;
+  margin-bottom: 8px;
 }
-
+.hourly-block .forecastChip {
+  font-size: .6rem;
+  padding: 2px;
+  display: block;
+  text-align: center;
+}
 .hourly-block .currTemp::after {
   content: '°';
 }

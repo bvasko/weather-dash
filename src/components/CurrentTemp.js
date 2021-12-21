@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
 
 export const CurrentTemp = ({data}) => {
-  console.log('start ', data);
   function getIcon(iconCode) {
     return "http://openweathermap.org/img/w/" + iconCode + ".png";
   }
