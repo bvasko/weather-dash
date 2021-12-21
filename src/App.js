@@ -90,13 +90,7 @@ function App() {
             { status === "fetched" && cityData.wind ? <CurrentTemp data={cityData} /> : "Loading" }
             { status === "fetched" && forecastData ? <ForecastComponent data={forecastData.list} /> : ''}
           </div>
-        </Grid> 
-
-        <Grid item xs={9} md={8}>
-          <div className="main">
-          <Typography variant="h5">Nothing Found</Typography>
-          </div>
-        </Grid>     
+        </Grid>   
       </Grid>
     </div>
   );
