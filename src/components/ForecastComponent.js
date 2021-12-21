@@ -19,7 +19,9 @@ export const ForecastComponent = ({data, i}) => {
     <Stack className="forecast-container" direction="column" spacing={2}>
       {dateKeys.map((key, i) => {
           const dataObj = sortByDate[key];
-          return <ForecastCard key={key} data={dataObj} i={i} />;
+          return (
+            <ForecastCard key={key} data={dataObj} i={i} />
+          );
         }
       )}
     </Stack> 

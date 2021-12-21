@@ -15,6 +15,7 @@ export const ForecastCard = ({data, i}) => {
 
           { data.map((obj, i, arr) => 
               <div className={`hourly-block`}>
+                <span className="tickmark">|</span>
                 <span className="time">{dayjs(obj.dt_txt).format("h a")}</span>
                 <span className="currTemp">{Math.round(obj.main.feels_like)}</span>
               </div>)

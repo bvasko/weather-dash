@@ -1,16 +1,30 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Chip from '@mui/material/Chip';
 
-export const CurrentTemp = ({data}) => {
-  console.log('start ', data)
+export const CurrentTemp = ({uvi, data}) => {
+  console.log('start ', data);
+  function getIcon(iconCode) {
+    return "http://openweathermap.org/img/w/" + iconCode + ".png";
+  }
+  const wind = `Wind ${data.wind.speed}`;
+  const humidity = `Humidity ${data.main.humidity}`;
+  const uviStr = `UVI ${uvi}`;
   return (
     <Card className="currentTemp-container">
       <CardContent>
+      <div className="currentTemp-details">
+        <Chip label={wind} variant="outlined"></Chip>
+        <Chip label={humidity} variant="outlined">Humidity</Chip>
+        <Chip label={uviStr} variant="outlined">UV</Chip>
+      </div>
       <List>
         <ListItem className="primary-temp">
+        <img 
+          className="weatherIcon" 
+          src={getIcon(data.weather[0].icon)} />
           {Math.round(data.main.temp)}° {data.weather[0].main}
         </ListItem>
         <ListItem className="secondary-temp">

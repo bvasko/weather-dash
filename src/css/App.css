@@ -28,34 +28,62 @@ body {
 .forecast-container {
   margin: 12px 0px;
 }
-.css-m69qwo-MuiStack-root {
-  justify-content: space-evenly;
-}
+
 /** city current temps */
+.weatherIcon {
+  margin-bottom: -10px;
+}
 .currentTemp-container {
   margin: 12px 0 18px 0;
 }
 
 .currentTemp-container strong {
   display: inline-block;
-  margin-right: 8px;
+  margin-right: 3px;
 }
 
 .currentTemp-container strong:not(:first-child) {
   margin-left: 20px;
 }
 
-/** end city current temps */
+.currentTemp-container li {
+  display: block;
+  text-align: center;
+}
 
+.main p {
+  font-size: 1rem;
+  display: block;
+  white-space: nowrap;
+  padding: 0px;
+  text-align: center;
+}
+
+/** end city current temps */
+.css-m69qwo-MuiStack-root {
+  flex-grow: 1;
+  width: 100%;
+  justify-content:space-between;
+}
 .hourly-block {
-  border: 1px solid #eee;
-  padding: 8px;
+  padding: 8px 0;
+  width: 18%;
+  border-bottom: 1px solid #eee;
+}
+.hourly-block .tickmark {
+  display: block;
+  margin-bottom: 3px;
+  text-align: center;
+  font-size: .6rem;
+  border-top: 32px solid rgb(83, 136, 235);
 }
 .hourly-block .time {
+  text-align: center;
   font-size: .8rem;
   display: block;
 }
 .hourly-block .currTemp {
+  text-align: center;
   font-size: 1.2rem;
   display: block;
 }
@@ -76,7 +104,7 @@ body {
 }
 
 .temp-description {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   font-weight: 100;
   text-transform: capitalize;
 }
