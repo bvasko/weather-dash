@@ -120,3 +120,12 @@ body {
   font-weight: 100;
   text-transform: capitalize;
 }
+
+.searchHistory li {
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.searchHistory li:hover {
+  background-color: rgb(211, 211, 248);
+}

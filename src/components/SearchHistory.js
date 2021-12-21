@@ -14,7 +14,7 @@ export const SearchHistory = ({data, handleClick}) => {
       alignItems: 'center' }}
       >
         <Typography variant="h6">Search History</Typography>
-        <List>
+        <List className="searchHistory">
           {data.map((searchStr) => 
             <ListItem onClick={() => { handleClick(searchStr);}}>{searchStr}</ListItem>
           )}
