@@ -24,6 +24,7 @@ export const CurrentTemp = ({data}) => {
         <ListItem className="primary-temp">
         <img 
           className="weatherIcon" 
+          alt="weather icon"
           src={getIcon(data.weather[0].icon)} />
           {Math.round(data.main.temp)}° {data.weather[0].main}
         </ListItem>

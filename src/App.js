@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { CurrentTemp } from './components/CurrentTemp.js';
 import { SearchBar } from './components/SearchBar.js';
+import { SearchHistory } from './components/SearchHistory.js';
 import { ForecastComponent } from './components/ForecastComponent.js';
 import dayjs from 'dayjs';
 import './css/App.css';
@@ -31,12 +32,33 @@ function App() {
     const data = await response.json();
     cb(data);
     setStatus('fetched');
-    console.log(data);
   };
+
+  function getHistory() {
+    console.log('ls ', localStorage.getItem('searchHistory'));
+    let ls = localStorage.getItem('searchHistory');
+    return (localStorage.getItem('searchHistory')) ? JSON.parse(ls) : [];
+  }
+
+  function saveHistory(query) {
+    let ls = getHistory();
+    if (ls.includes(query)) return;
+    ls.push(query);
+    localStorage.setItem('searchHistory', JSON.stringify(ls))
+
+  }
+
+  useEffect(() => {
+    if (!localStorage.getItem('searchHistory')) {
+      const searchHistory = [];
+      localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+  }, []);
 
   useEffect(() => {
     fetchData('weather', `?q=${query}`, setCityData);
     fetchData('forecast', `?q=${query}`, setForecastData);
+    saveHistory(query);
   },[query]);
 
   function handleClick(e) {
@@ -47,6 +69,9 @@ function App() {
   function handleChange(e) {
     setTemp(e.target.value);
   }
+  function getItemFromHistory(str) {
+    setQuery(str);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -56,15 +81,14 @@ function App() {
       <Grid container spacing={2}>
         <Grid item xs={3} md={4}>
           <SearchBar handleClick={handleClick} handleChange={handleChange} query={query} />
+          <SearchHistory handleClick={getItemFromHistory} data={getHistory()} />
         </Grid>
-        
-        
         <Grid item xs={9} md={8}>
           <div className="main">
             <Typography className="city-title" variant="h3">{cityData.name || ''} </Typography>
             <p>{dayjs(cityData.dt*1000).format('MMM DD YYYY')}</p>
-            { cityData.wind ? <CurrentTemp data={cityData} /> : "Loading" }
-            { forecastData ? <ForecastComponent data={forecastData.list} /> : ''}
+            { status === "fetched" && cityData.wind ? <CurrentTemp data={cityData} /> : "Loading" }
+            { status === "fetched" && forecastData ? <ForecastComponent data={forecastData.list} /> : ''}
           </div>
         </Grid> 
 
@@ -72,8 +96,7 @@ function App() {
           <div className="main">
           <Typography variant="h5">Nothing Found</Typography>
           </div>
-        </Grid>
-        
+        </Grid>     
       </Grid>
     </div>
   );
