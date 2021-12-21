@@ -4,21 +4,21 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
 
-export const CurrentTemp = ({uvi, data}) => {
+export const CurrentTemp = ({data}) => {
   console.log('start ', data);
   function getIcon(iconCode) {
     return "http://openweathermap.org/img/w/" + iconCode + ".png";
   }
   const wind = `Wind ${data.wind.speed}`;
   const humidity = `Humidity ${data.main.humidity}`;
-  const uviStr = `UVI ${uvi}`;
+
   return (
     <Card className="currentTemp-container">
       <CardContent>
       <div className="currentTemp-details">
         <Chip label={wind} variant="outlined"></Chip>
         <Chip label={humidity} variant="outlined">Humidity</Chip>
-        <Chip label={uviStr} variant="outlined">UV</Chip>
+        
       </div>
       <List>
         <ListItem className="primary-temp">

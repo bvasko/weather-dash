@@ -11,59 +11,38 @@ import './css/App.css';
 function App() {
   const [query, setQuery] = useState('Philadelphia');
   const [temp, setTemp] = useState('Philadelphia');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('idle');
   const [cityData, setCityData] = useState({name: ''});
-  const [oneCallData, setOneCallData] = useState();
-  const [forecastData, setForecastData] = useState([]);
+  const [forecastData, setForecastData] = useState();
   const baseUrl = `https://api.openweathermap.org/data/2.5/`;
   const appId = `&appid=${process.env.REACT_APP_API_KEY}`;
   const units = `&units=imperial`;
   let getUrl = (queryType, queryStr) => `${baseUrl}${queryType}${queryStr}${appId}${units}`;
-  // useFetch should trigger everytime query changes
-  //onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+  const fetchData = async (api, queryStr, cb) => {
+    /**
+     * TODOs: 
+     * X get philadelphia as default value on page load
+     * - integrate Snapyr
+     * - Have search box detect 'enter' key and trigger search if it is pressed
+     */
+    setStatus('fetching');
+    const url = getUrl(api, queryStr);
+    const response = await fetch(url);
+    const data = await response.json();
+    cb(data);
+    setStatus('fetched');
+    console.log(data);
+  };
+
   useEffect(() => {
-    if (!query) return;
+    fetchData('weather', `?q=${query}`, setCityData);
+    fetchData('forecast', `?q=${query}`, setForecastData);
+  },[query]);
 
-    const fetchData = async () => {
-      /**
-       * TODOs: 
-       * X get philadelphia as default value on page load
-       * - integrate Snapyr
-       * - Have search box detect 'enter' key and trigger search if it is pressed
-       */
-      setStatus('fetching');
-      const weatherResponse = await fetch(getUrl('weather', `?q=${query}`));
-      if (weatherResponse.status === 404 || !weatherResponse.ok) {
-        setStatus('error');
-      }
-      const data = await weatherResponse.json();
-      setCityData(data);
-      setStatus('fetched');
-
-      setStatus('fetching');
-      const forecastResponse = await fetch(getUrl('forecast', `?q=${query}`));
-      if (forecastResponse.status === 404 || !forecastResponse.ok) {
-        setStatus('error');
-      }
-      const forecast = await forecastResponse.json();
-      setForecastData(forecast.list);
-      setStatus('fetched');
-
-      setStatus('fetching');
-      const oneCallResponse = await fetch(getUrl('onecall', `?lat=${cityData.coord.lat}&lon=${cityData.coord.lon}&exclude=minutely,hourly`));
-      if (oneCallResponse.status === 404 || !oneCallResponse.ok) {
-        setStatus('error');
-      }
-      const onecall = await oneCallResponse.json();
-      setOneCallData(onecall);
-      setStatus('fetched');
-      console.log('onecall ', onecall)
-
-    };
-    fetchData();
-  }, [query]);
   function handleClick(e) {
     setQuery(temp);
+    fetchData('weather', `?q=${query}`, setCityData);
+    fetchData('forecast', `?q=${query}`, setForecastData);
   }
   function handleChange(e) {
     setTemp(e.target.value);
@@ -79,21 +58,22 @@ function App() {
           <SearchBar handleClick={handleClick} handleChange={handleChange} query={query} />
         </Grid>
         
-        { status === 'fetched' ? 
+        
         <Grid item xs={9} md={8}>
           <div className="main">
             <Typography className="city-title" variant="h3">{cityData.name || ''} </Typography>
             <p>{dayjs(cityData.dt*1000).format('MMM DD YYYY')}</p>
-            <CurrentTemp uvi={oneCallData.current.uvi} data={cityData} />
-            <ForecastComponent data={forecastData} />
+            { cityData.wind ? <CurrentTemp data={cityData} /> : "Loading" }
+            { forecastData ? <ForecastComponent data={forecastData.list} /> : ''}
           </div>
-        </Grid> :
+        </Grid> 
+
         <Grid item xs={9} md={8}>
           <div className="main">
           <Typography variant="h5">Nothing Found</Typography>
           </div>
         </Grid>
-        }
+        
       </Grid>
     </div>
   );
